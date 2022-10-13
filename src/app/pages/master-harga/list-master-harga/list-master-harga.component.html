@@ -1,0 +1,153 @@
+<p-toast position="top-center"></p-toast>
+
+<div class="card">
+  <h3>Data Harga</h3>
+
+  <p-table #dt [value]="items" [rows]="10"
+           [paginator]="true" (onLazyLoad)="getData($event)" [lazy]="true"
+           [totalRecords]="totalRecords"
+           [rowHover]="true" dataKey="id_harga"
+           [rowsPerPageOptions]="[5,10, 25, 50]"
+           [showCurrentPageReport]="true"
+           [loading]="isLoading"
+           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+           styleClass="p-datatable-customers p-datatable-gridlines"
+           [globalFilterFields]="['keyword']">
+
+    <ng-template pTemplate="caption">
+      <div class="flex">
+        <button pButton pRipple label="Add" icon="pi pi-plus" class="p-button-success mr-2 p-button-sm"
+                (click)="openNew()"></button>
+        <p-fileUpload mode="basic" [maxFileSize]="1000000" label="Import Data" chooseLabel="Import Data"
+                      invalidFileTypeMessageSummary="Invalid file type"
+                      chooseIcon="pi pi-file-import"
+                      styleClass="mr-2 p-d-inline-block p-button-secondary"
+                      (onSelect)="uploadData($event.files)" [auto]="true"
+                      accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"></p-fileUpload>
+        <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+
+                <input pInputText type="text" (input)="searchData($event, 'contains')"
+                       placeholder="Search keyword"/>
+
+            </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th class="my-center-text">No.</th>
+        <th pSortableColumn="merk">Merk
+          <p-sortIcon field="merk"></p-sortIcon>
+        </th>
+        <th pSortableColumn="price" class="my-center-text">Type
+          <p-sortIcon field="price"></p-sortIcon>
+        </th>
+        <th pSortableColumn="storage" class="my-center-text">Storage
+          <p-sortIcon field="storage"></p-sortIcon>
+        </th>
+        <th pSortableColumn="hargaEstimasi" class="my-center-text">Harga Estimasi
+          <p-sortIcon field="hargaEstimasi"></p-sortIcon>
+        </th>
+        <th pSortableColumn="hargaGradeA" class="my-center-text">Harga Grade A
+          <p-sortIcon field="hargaGradeA"></p-sortIcon>
+        </th>
+        <th pSortableColumn="hargaGradeB" class="my-center-text">Harga Grade B
+          <p-sortIcon field="hargaGradeB"></p-sortIcon>
+        </th>
+        <th pSortableColumn="hargaGradeC" class="my-center-text">Harga Grade C
+          <p-sortIcon field="hargaGradeC"></p-sortIcon>
+        </th>
+        <th class="my-center-text">Action</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowIndex="rowIndex" let-harga>
+      <tr>
+        <td class="my-center-text">{{rowIndex + 1}}.</td>
+        <td>{{harga.merk}}</td>
+        <td>{{harga.type}}</td>
+        <td>{{harga.storage}}</td>
+        <td>{{harga.harga_estimasi | number:'1.0-0'}}</td>
+        <td>{{harga.harga_grade_a | number:'1.0-0'}}</td>
+        <td>{{harga.harga_grade_b | number:'1.0-0'}}</td>
+        <td>{{harga.harga_grade_c | number:'1.0-0'}}</td>
+
+        <td class="my-center-text">
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-button-sm p-mr-3"
+                  (click)="editData(harga)"></button>
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning p-button-sm"
+                  (click)="deleteData(harga)"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="9">No data found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Add/Edit Data Harga" [modal]="true"
+          styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <div class="formgrid grid">
+      <div class="field col">
+        <label for="merk">Merk</label>
+        <input type="text" class="p-inputtext-sm" pInputText id="merk" [(ngModel)]="harga.merk" placeholder="Merk"
+               required autofocus/>
+        <small class="p-error" *ngIf="submitted && !harga.merk">Merk is required.</small>
+      </div>
+
+      <div class="field col">
+        <label for="type">Type</label>
+        <input type="text" class="p-inputtext-sm" pInputText id="type" [(ngModel)]="harga.type" placeholder="Type"
+               required/>
+      </div>
+    </div>
+
+    <div class="formgrid grid">
+      <div class="field col">
+        <label for="storage">Storage</label>
+        <input type="text" class="p-inputtext-sm" pInputText id="storage" [(ngModel)]="harga.storage"
+               placeholder="Storage"
+               required/>
+      </div>
+
+
+      <div class="field col">
+        <label for="harga_estimasi">Harga Estimasi</label>
+        <p-inputNumber class="p-inputtext-sm" id="harga_estimasi" [(ngModel)]="harga.harga_estimasi"
+                       placeholder="Harga Estimasi"></p-inputNumber>
+      </div>
+    </div>
+
+
+    <div class="formgrid grid">
+      <div class="field col">
+        <label for="harga_grade_a">Harga Grade A</label>
+        <p-inputNumber class="p-inputtext-sm" id="harga_grade_a" [(ngModel)]="harga.harga_grade_a"
+                       placeholder="Harga Grade A"></p-inputNumber>
+      </div>
+      <div class="field col">
+        <label for="harga_grade_b">Harga Grade B</label>
+        <p-inputNumber class="p-inputtext-sm" id="harga_grade_b" [(ngModel)]="harga.harga_grade_b"
+                       placeholder="Harga Grade B"></p-inputNumber>
+      </div>
+      <div class="field col">
+        <label for="harga_grade_c">Harga Grade C</label>
+        <p-inputNumber class="p-inputtext-sm" id="harga_grade_c" [(ngModel)]="harga.harga_grade_c"
+                       placeholder="Harga Grade C"></p-inputNumber>
+      </div>
+    </div>
+
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-danger p-button-sm"
+            (click)="hideDialog()"></button>
+    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-success p-button-sm"
+            (click)="saveData()"></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

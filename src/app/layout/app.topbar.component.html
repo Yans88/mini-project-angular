@@ -1,0 +1,39 @@
+<div class="layout-topbar">
+  <a class="layout-topbar-logo" routerLink="">
+    <img src="assets/images/logo.png" alt="logo" style="height: 5rem"/>
+    <span>Yansen</span>
+  </a>
+
+  <button
+    #menubutton
+    class="p-link layout-menu-button layout-topbar-button"
+    (click)="layoutService.onMenuToggle()"
+  >
+    <i class="pi pi-bars"></i>
+  </button>
+
+  <button
+    #topbarmenubutton
+    class="p-link layout-topbar-menu-button layout-topbar-button"
+    (click)="layoutService.showProfileSidebar()"
+  >
+    <i class="pi pi-ellipsis-v"></i>
+  </button>
+
+  <div
+    #topbarmenu
+    class="layout-topbar-menu"
+    [ngClass]="{
+      'layout-topbar-menu-mobile-active':
+        layoutService.state.profileSidebarVisible
+    }"
+  >
+    <button class="p-link layout-topbar-button" (click)="menu.toggle($event)">
+      <h6 class="mr-2 mt-4">{{ sessionService.getEmail() | async }}</h6>
+      <i class="pi pi-user"></i>
+      <span>Profile</span>
+    </button>
+
+    <p-menu #menu [popup]="true" [model]="items2"></p-menu>
+  </div>
+</div>

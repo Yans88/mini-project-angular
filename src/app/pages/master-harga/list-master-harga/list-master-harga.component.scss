@@ -1,0 +1,36 @@
+.p-dialog .p-dialog-content {
+  background: #ffffff;
+  color: #495057;
+  padding: 0 1.5rem 2rem 1.5rem;
+}
+
+.p-dialog-content {
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.p-component, .p-component * {
+  box-sizing: border-box;
+}
+
+.p-field {
+  margin-bottom: 1rem;
+}
+
+.p-field > label {
+  font-size: 1.25rem !important;
+  font-weight: 500;
+}
+
+.p-fluid .p-inputtext {
+  width: 100%;
+}
+
+.p-inputtext {
+  margin: 0;
+  width: 100%;
+}
+
+.my-center-text {
+  text-align: center !important;
+}
