@@ -84,7 +84,7 @@ export class ListMasterHargaComponent implements OnInit {
       rejectLabel: 'Cancel',
       accept: () => {
         this.masterHargaService.deleteData(id_harga).subscribe(response => {
-          console.log(response);
+          //console.log(response);
         });
         this.items = this.items.filter(val => val.id_harga !== harga.id_harga);
         this.totalRecords = this.totalRecords - 1;

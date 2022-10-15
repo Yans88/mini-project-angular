@@ -64,5 +64,15 @@ describe('LoginComponent', () => {
     expect(component.loginForm.valid).toBeTruthy()
   })
 
+  it('login onsubmit', () => {
+    component.loginForm.setValue({
+      username: 'yansen@gmail.com',
+      password: '123123',
+    })
+    component.onSubmit();
+    expect(component.isLoading).toEqual(false);
+  })
+
+
 
 });

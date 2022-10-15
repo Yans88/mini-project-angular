@@ -53,11 +53,6 @@ export class WebSocketAPI {
     this.stompClient.send("/app/addUser", {}, JSON.stringify({sender: email, type: 'JOIN'}));
   }
 
-  sendMessagge(message: any) {
-    console.log("calling logout api via web socket");
-    this.stompClient.send("/app/hello", {}, JSON.stringify(message));
-  }
-
   onMessageReceived(payload: any) {
     const message = JSON.parse(payload.body);
     if (message.type === "NewTransaksi") {

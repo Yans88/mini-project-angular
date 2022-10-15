@@ -1,11 +1,76 @@
 <div class="grid">
+  <div class="col-12 lg:col-6 xl:col-3">
+    <div class="card mb-0">
+      <div class="flex justify-content-between mb-3">
+        <div>
+          <span class="block text-500 font-medium mb-3">Bitcoin</span>
+          <div class="text-900 text-green-700 font-medium text-xl">{{rate?.bitcoin | number:'1.0-2'}}</div>
+        </div>
+        <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
+             [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+          <i class="pi pi-inbox text-blue-500 text-xl"></i>
+        </div>
+      </div>
+      <span class="text-500 text-sm font-italic">Last Update: </span>
+      <span class="text-500 text-sm text-blue-600">{{dateRate | date: 'HH:mm:ss'}}</span>
+    </div>
+  </div>
+  <div class="col-12 lg:col-6 xl:col-3">
+    <div class="card mb-0">
+      <div class="flex justify-content-between mb-3">
+        <div>
+          <span class="block text-500 font-medium mb-3">Ethereum</span>
+          <div class="text-900 text-green-700 font-medium text-xl">{{rateEtherum | number:'1.0-2'}}</div>
+        </div>
+        <div class="flex align-items-center justify-content-center bg-orange-100 border-round"
+             [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+          <i class="pi pi-inbox text-orange-500 text-xl"></i>
+        </div>
+      </div>
+      <span class="text-500 text-sm font-italic">Last Update: </span>
+      <span class="text-500 text-sm text-blue-600">{{dateRateEthereum | date: 'HH:mm:ss'}}</span>
+    </div>
+  </div>
+  <div class="col-12 lg:col-6 xl:col-3">
+    <div class="card mb-0">
+      <div class="flex justify-content-between mb-3">
+        <div>
+          <span class="block text-500 font-medium mb-3">Monero</span>
+          <div class="text-900 text-green-700 font-medium text-xl">{{ratemonero | number:'1.0-2'}}</div>
+        </div>
+        <div class="flex align-items-center justify-content-center bg-cyan-100 border-round"
+             [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+          <i class="pi pi-inbox text-cyan-500 text-xl"></i>
+        </div>
+      </div>
+      <span class="text-500 text-sm font-italic">Last Update: </span>
+      <span class="text-500 text-sm text-blue-600">{{dateRateMonero | date: 'HH:mm:ss'}}</span>
+    </div>
+  </div>
+  <div class="col-12 lg:col-6 xl:col-3">
+    <div class="card mb-0">
+      <div class="flex justify-content-between mb-3">
+        <div>
+          <span class="block text-500 font-medium mb-3">Lite Coin</span>
+          <div class="text-900 text-green-700 font-medium text-xl">{{rateLitecoin | number:'1.0-2'}}</div>
+        </div>
+        <div class="flex align-items-center justify-content-center bg-purple-100 border-round"
+             [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+          <i class="pi pi-inbox text-purple-500 text-xl"></i>
+        </div>
+      </div>
+      <span class="text-500 text-sm font-italic">Last Update: </span>
+      <span class="text-500 text-sm text-blue-600">{{dateRateLiteCoin | date: 'HH:mm:ss'}}</span>
+    </div>
+  </div>
+
   <div class="col-12">
     <div class="card">
       <h5>Simulasi Web Socket(rxjs/webSocket)</h5>
       <highcharts-chart *ngIf="chartOptions"
                         [Highcharts]="Highcharts"
                         [options]="chartOptions"
-                        style="width: 100%; height: 400px; display: block;"
+                        style="width: 100%; height: 750px; display: block;"
       ></highcharts-chart>
     </div>
   </div>

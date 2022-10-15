@@ -55,14 +55,6 @@ export class MasterHargaService {
   }
 
   uploadFile(body: File) {
-    const headerOption = {
-      headers: new HttpHeaders({
-        'Content-Type': 'multipart/form-data',
-        'enctype': 'multipart/form-data',
-        'Accept': 'application/json'
-      }),
-    };
-
     let formData = new FormData();
     formData.append('file', body);
     return this.http.post(

@@ -94,12 +94,12 @@ export class ListTransaksiComponent implements OnInit {
   }
 
   onRowSelect(event: any) {
-
-    /*this.titleDialog = "Detail Transaksi #" + event.data.id_transaksi;
-    this.selectedData = {...event.data};*/
-    this.transaksiDialog = true;
-    this.isBtnLoading = false;
-console.log(this.transaksiDialog);
+    if (event) {
+      this.titleDialog = "Detail Transaksi #" + event.data.id_transaksi;
+      this.selectedData = {...event.data};
+      this.transaksiDialog = true;
+      this.isBtnLoading = false;
+    }
   }
 
   hideDialog() {

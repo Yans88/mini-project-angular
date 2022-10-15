@@ -31,4 +31,37 @@ describe('MySessionService', () => {
     expect(service.getToken()).toEqual('123131');
     done();
   });
+
+  it('should be create session', (done: DoneFn) => {
+    let user_info = {
+      name: "Admin",
+      id: 2,
+      email: "admin@mail.com",
+      username: "admin"
+    }
+    service.createSession(user_info);
+    expect(service.getSession()).toEqual(user_info);
+    done();
+  });
+
+  it('should be destroy session', (done: DoneFn) => {
+    service.destroySession();
+    expect(service.getSession()).toBeNull();
+    done();
+  });
+
+  it('Get data from session', (done: DoneFn) => {
+    let user_info = {
+      name: "Admin",
+      id: 2,
+      email: "admin@mail.com",
+      username: "admin"
+    }
+    service.createSession(user_info);
+    service.getEmail().subscribe(value => {
+      expect(value).toEqual(user_info.email);
+      done();
+    });
+  });
+
 });
