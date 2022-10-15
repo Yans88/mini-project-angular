@@ -1,3 +1,4 @@
+<p-toast position="bottom-right" key="newTransaksi" [preventDuplicates]=false  (onClose)="webSocketAPI.clearMessage()"></p-toast>
 <div class="layout-topbar">
   <a class="layout-topbar-logo" routerLink="">
     <img src="assets/images/logo.png" alt="logo" style="height: 5rem"/>
@@ -20,6 +21,7 @@
     <i class="pi pi-ellipsis-v"></i>
   </button>
 
+
   <div
     #topbarmenu
     class="layout-topbar-menu"
@@ -28,10 +30,17 @@
         layoutService.state.profileSidebarVisible
     }"
   >
+    <a routerLink="/transaksi">
+      <i class="pi pi-bell mt-3 ml-2" style="font-size: 1.45rem" (click)="webSocketAPI.clearCounter()" pBadge
+         value="{{webSocketAPI.notificationCounter | async}}"
+         size="large" severity="danger"></i>
+
+    </a>
     <button class="p-link layout-topbar-button" (click)="menu.toggle($event)">
-      <h6 class="mr-2 mt-4">{{ sessionService.getEmail() | async }}</h6>
+
       <i class="pi pi-user"></i>
-      <span>Profile</span>
+      <h6 class="ml-2 mt-4">{{ sessionService.getEmail() | async }}</h6>
+
     </button>
 
     <p-menu #menu [popup]="true" [model]="items2"></p-menu>

@@ -1,16 +1,20 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {MenuItem} from 'primeng/api';
 import {MySessionService} from '../auth/my-session.service';
 import {LayoutService} from './service/app.layout.service';
+import {WebSocketAPI} from "./api/WebSocketAPI";
 
 @Component({
   selector: 'app-topbar',
   templateUrl: './app.topbar.component.html',
+  providers: [WebSocketAPI]
 })
-export class AppTopBarComponent {
+export class AppTopBarComponent implements OnInit {
   items!: MenuItem[];
   items2!: MenuItem[];
+
+  countMsg: number = 0;
 
   @ViewChild('menubutton') menuButton!: ElementRef;
 
@@ -21,7 +25,8 @@ export class AppTopBarComponent {
   constructor(
     public layoutService: LayoutService,
     private router: Router,
-    public sessionService: MySessionService
+    public sessionService: MySessionService,
+    public webSocketAPI: WebSocketAPI
   ) {
     this.items2 = [
       {
@@ -32,8 +37,15 @@ export class AppTopBarComponent {
     ];
   }
 
+  ngOnInit(): void {
+    if (this.sessionService.isUserLogin()) this.webSocketAPI.connectWS();
+  }
+
   logOut(): void {
     this.sessionService.destroySession();
+    this.webSocketAPI.disConnect();
     this.router.navigateByUrl('/auth/login');
   }
+
+
 }

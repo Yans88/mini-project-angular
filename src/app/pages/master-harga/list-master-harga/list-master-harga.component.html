@@ -7,7 +7,7 @@
            [paginator]="true" (onLazyLoad)="getData($event)" [lazy]="true"
            [totalRecords]="totalRecords"
            [rowHover]="true" dataKey="id_harga"
-           [rowsPerPageOptions]="[5,10, 25, 50]"
+           [rowsPerPageOptions]="[10, 25, 50]"
            [showCurrentPageReport]="true"
            [loading]="isLoading"
            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -21,48 +21,48 @@
         <p-fileUpload mode="basic" [maxFileSize]="1000000" label="Import Data" chooseLabel="Import Data"
                       invalidFileTypeMessageSummary="Invalid file type"
                       chooseIcon="pi pi-file-import"
-                      styleClass="mr-2 p-d-inline-block p-button-secondary"
+                      styleClass="mr-2 p-d-inline-block p-button-help"
                       (onSelect)="uploadData($event.files)" [auto]="true"
                       accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"></p-fileUpload>
         <span class="p-input-icon-left ml-auto">
                 <i class="pi pi-search"></i>
 
-                <input pInputText type="text" (input)="searchData($event, 'contains')"
+                <input pInputText type="text" (input)="searchData($event)"
                        placeholder="Search keyword"/>
 
-            </span>
+        </span>
       </div>
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
-        <th class="my-center-text">No.</th>
+        <th class="text-center">No.</th>
         <th pSortableColumn="merk">Merk
           <p-sortIcon field="merk"></p-sortIcon>
         </th>
-        <th pSortableColumn="price" class="my-center-text">Type
-          <p-sortIcon field="price"></p-sortIcon>
+        <th pSortableColumn="type" class="text-center">Type
+          <p-sortIcon field="type"></p-sortIcon>
         </th>
-        <th pSortableColumn="storage" class="my-center-text">Storage
+        <th pSortableColumn="storage" class="text-center">Storage
           <p-sortIcon field="storage"></p-sortIcon>
         </th>
-        <th pSortableColumn="hargaEstimasi" class="my-center-text">Harga Estimasi
+        <th pSortableColumn="hargaEstimasi" class="text-center">Harga Estimasi
           <p-sortIcon field="hargaEstimasi"></p-sortIcon>
         </th>
-        <th pSortableColumn="hargaGradeA" class="my-center-text">Harga Grade A
+        <th pSortableColumn="hargaGradeA" class="text-center">Harga Grade A
           <p-sortIcon field="hargaGradeA"></p-sortIcon>
         </th>
-        <th pSortableColumn="hargaGradeB" class="my-center-text">Harga Grade B
+        <th pSortableColumn="hargaGradeB" class="text-center">Harga Grade B
           <p-sortIcon field="hargaGradeB"></p-sortIcon>
         </th>
-        <th pSortableColumn="hargaGradeC" class="my-center-text">Harga Grade C
+        <th pSortableColumn="hargaGradeC" class="text-center">Harga Grade C
           <p-sortIcon field="hargaGradeC"></p-sortIcon>
         </th>
-        <th class="my-center-text">Action</th>
+        <th class="text-center">Action</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowIndex="rowIndex" let-harga>
       <tr>
-        <td class="my-center-text">{{rowIndex + 1}}.</td>
+        <td class="text-center">{{rowIndex + 1}}.</td>
         <td>{{harga.merk}}</td>
         <td>{{harga.type}}</td>
         <td>{{harga.storage}}</td>
@@ -71,7 +71,7 @@
         <td>{{harga.harga_grade_b | number:'1.0-0'}}</td>
         <td>{{harga.harga_grade_c | number:'1.0-0'}}</td>
 
-        <td class="my-center-text">
+        <td class="text-center">
           <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-button-sm p-mr-3"
                   (click)="editData(harga)"></button>
           <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning p-button-sm"

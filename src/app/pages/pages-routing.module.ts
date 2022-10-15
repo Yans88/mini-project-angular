@@ -12,6 +12,10 @@ const routes: Routes = [
     path: 'master_harga',
     loadChildren: () => import('./master-harga/master-harga.module').then((m) => m.MasterHargaModule),
   },
+  {
+    path: 'transaksi',
+    loadChildren: () => import('./transaksi/transaksi.module').then((m) => m.TransaksiModule),
+  },
 ];
 
 @NgModule({

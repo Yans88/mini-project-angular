@@ -7,7 +7,8 @@ import {AppTopBarComponent} from './app.topbar.component';
 
 @Component({
   selector: 'app-layout',
-  templateUrl: './app.layout.component.html'
+  templateUrl: './app.layout.component.html',
+
 })
 export class AppLayoutComponent implements OnDestroy {
 
@@ -22,6 +23,7 @@ export class AppLayoutComponent implements OnDestroy {
   @ViewChild(AppTopBarComponent) appTopbar!: AppTopBarComponent;
 
   constructor(public layoutService: LayoutService, public renderer: Renderer2, public router: Router) {
+
     this.overlayMenuOpenSubscription = this.layoutService.overlayOpen$.subscribe(() => {
       if (!this.menuOutsideClickListener) {
         this.menuOutsideClickListener = this.renderer.listen('document', 'click', event => {
@@ -55,6 +57,7 @@ export class AppLayoutComponent implements OnDestroy {
         this.hideMenu();
         this.hideProfileMenu();
       });
+
   }
 
   hideMenu() {
@@ -118,4 +121,6 @@ export class AppLayoutComponent implements OnDestroy {
       this.menuOutsideClickListener();
     }
   }
+
+
 }

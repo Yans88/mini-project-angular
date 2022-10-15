@@ -3,7 +3,7 @@ import {LayoutService} from './service/app.layout.service';
 
 @Component({
   selector: 'app-menu',
-  templateUrl: './app.menu.component.html',
+  templateUrl: './app.menu.component.html'
 })
 export class AppMenuComponent implements OnInit {
   model: any[] = [];
@@ -14,7 +14,7 @@ export class AppMenuComponent implements OnInit {
   ngOnInit() {
     this.model = [
       {
-        label: 'Pages',
+
         icon: 'pi pi-fw pi-briefcase',
         routerLink: ['/page'],
         items: [
@@ -43,13 +43,31 @@ export class AppMenuComponent implements OnInit {
             icon: 'pi pi-align-justify',
             routerLink: ['/pages/master_harga'],
           },
+
           {
-            label: 'Data Transaksi',
-            icon: 'pi pi-align-justify',
-            routerLink: ['/pages/master_harga'],
+            label: 'Data Transaksi', icon: 'pi pi-fw pi-chart-bar',
+            items: [
+              {
+                label: 'New Transaksi', icon: 'pi pi-fw pi-chart-line',
+                routerLink: ['/transaksi'],
+              },
+              {
+                label: 'Onproses', icon: 'pi pi-fw pi-check-circle',
+                routerLink: ['/transaksi/approve'],
+              },
+              {
+                label: 'Ditolak', icon: 'pi pi-fw pi-times',
+                routerLink: ['/transaksi/reject'],
+              },
+              {
+                label: 'Cancel', icon: 'pi pi-fw pi-exclamation-circle',
+                routerLink: ['/transaksi/cancel'],
+              }
+            ]
           },
         ],
       },
     ];
+
   }
 }

@@ -9,7 +9,7 @@ import {IDataHargaModel, IResponsePostHargaModel, MasterHargaModel} from "./mast
 })
 export class MasterHargaService {
 
-  urlApi: string = environment.endpoint.miniProjectAPI;
+  urlApi: string = environment.endpoint.miniProjectAPI + '/master_harga';
 
   constructor(private http: HttpClient) {
   }
@@ -19,9 +19,9 @@ export class MasterHargaService {
     rows = rows ? rows : 10;
     first = first ? first / rows : 0;
     sortField = sortField ? sortField : 'merk';
-    sortOrder = sortOrder < 0 ? sortOrder : 'asc';
+    sortOrder = sortOrder < 0 ? 'desc' : 'asc';
     globalFilter = globalFilter ? globalFilter : '';
-    return this.http.get<MasterHargaModel>(`${this.urlApi}/master_harga?page=${first}&size=${rows}&sort_column=${sortField}&sort_order=${sortOrder}&keyword=${globalFilter}`);
+    return this.http.get<MasterHargaModel>(`${this.urlApi}?page=${first}&size=${rows}&sort_column=${sortField}&sort_order=${sortOrder}&keyword=${globalFilter}`);
   }
 
   postData(body: IDataHargaModel): Observable<IResponsePostHargaModel> {
@@ -31,7 +31,7 @@ export class MasterHargaService {
       }),
     };
     return this.http.post<IResponsePostHargaModel>(
-      `${this.urlApi}/master_harga`,
+      `${this.urlApi}`,
       body,
       headerOption
     );
@@ -44,14 +44,14 @@ export class MasterHargaService {
       }),
     };
     return this.http.put<IResponsePostHargaModel>(
-      `${this.urlApi}/master_harga/${body.id_harga}`,
+      `${this.urlApi}/${body.id_harga}`,
       body,
       headerOption
     );
   }
 
   deleteData(id: number | string): Observable<any> {
-    return this.http.delete(`${this.urlApi}/master_harga/${id}`)
+    return this.http.delete(`${this.urlApi}/${id}`)
   }
 
   uploadFile(body: File) {
@@ -66,7 +66,7 @@ export class MasterHargaService {
     let formData = new FormData();
     formData.append('file', body);
     return this.http.post(
-      `${this.urlApi}/master_harga/import`,
+      `${this.urlApi}/import`,
       formData
     );
   }

@@ -20,8 +20,11 @@ export class ListMasterHargaComponent implements OnInit {
   private unsubcribe$ = new Subject();
   harga!: IDataHargaModel;
 
-  first = 0;
-  rows = 10;
+  first: number = 0;
+  rows: number | undefined = 10;
+  sortField: string | undefined = "merk";
+  sortOrder: number | undefined = 1;
+  globalFilter: any;
 
   submitted!: boolean;
 
@@ -39,21 +42,23 @@ export class ListMasterHargaComponent implements OnInit {
   }
 
   getData(event: LazyLoadEvent) {
-    console.log(event);
     this.isLoading = true;
     setTimeout(() => {
       this.masterHargaService.getData(event).pipe(takeUntil(this.unsubcribe$)).subscribe((res: MasterHargaModel) => {
         this.items = res.data;
         this.totalRecords = res.total_data;
         this.isLoading = false;
-      })
+      }, ((err: Error) => {
+        console.log(err);
+        this.isLoading = false;
+      }))
     }, 1000);
 
   }
 
-  searchData(event: any, value: any) {
+  searchData(event: any) {
     const res = (event.target as HTMLInputElement)?.value
-    this.dt.filterGlobal(res, value);
+    this.dt.filterGlobal(res);
   }
 
   openNew() {
@@ -169,15 +174,19 @@ export class ListMasterHargaComponent implements OnInit {
           this.isLoading = false
         }
       )
+  }*/
+
+  /*loadDataLazy(event: LazyLoadEvent): LazyLoadEvent {
+    this.rows = event.rows
+    this.globalFilter = event.globalFilter
+    this.sortField = event.sortField
+    this.sortOrder = event.sortOrder;
+    this.refreshData()
+    return event;
   }
 
-  async loadCarsLazy(event: LazyLoadEvent) {
-    this.page = event.first / event.rows
-    this.globalFilter = event.globalFilter
+  private refreshData() {
 
-    this.sortField = event.sortField
-    this.sortMode = event.sortOrder !== 1 ? "desc" : "asc"
-    this.refreshData()
   }*/
 
 

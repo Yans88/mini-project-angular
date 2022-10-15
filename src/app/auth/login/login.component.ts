@@ -5,6 +5,7 @@ import {AuthService} from '../auth.service';
 import {MySessionService} from '../my-session.service';
 import {Subject, takeUntil} from 'rxjs';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -38,7 +39,7 @@ export class LoginComponent {
     private route: Router,
     private actRoute: ActivatedRoute,
     private authService: AuthService,
-    private sessionService: MySessionService
+    private sessionService: MySessionService,
   ) {
   }
 

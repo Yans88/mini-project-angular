@@ -23,7 +23,8 @@ registerLocaleData(localeId, 'id');
       multi: true,
     },
   ],
-  bootstrap: [AppComponent],
+
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }

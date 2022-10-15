@@ -38,21 +38,26 @@ export class HomeComponent implements OnInit, OnDestroy {
       concatMap(item => of(item).pipe(delay(1000)))
     ).subscribe((res) => {
       this.rate = res;
+      //const point = [new Date().getTime(), value * 10];
       this.chardata.push(Number(this.rate.bitcoin));
       if (this.chardata.length > 12) this.chardata.splice(0, 1);
 
       this.chartOptions = {
         series: [{
           name: 'Bitcoin',
-          data: this.chardata
+          data: this.chardata,
         },],
         chart: {
           type: "spline",
           zoomType: 'x'
         },
         title: {
-          text: "linechart",
+          text: "Spline",
         },
+        subtitle: {
+          text: 'Source Data: wss://ws.coincap.io/prices?assets=bitcoin'
+        },
+
         yAxis: {
           title: {
             text: 'Value'
@@ -68,12 +73,11 @@ export class HomeComponent implements OnInit, OnDestroy {
         },
 
         xAxis: {
-          type: 'datetime',
+
           tickPixelInterval: 150,
           labels: {
             maxStaggerLines: 10,
             step: 0,
-            format: Highcharts.dateFormat('%H:%M:%S', (new Date()).getTime()),
             style: {
               color: 'red',
               fontSize: '12px'
@@ -88,6 +92,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           }
         },
       };
+
     });
   }
 

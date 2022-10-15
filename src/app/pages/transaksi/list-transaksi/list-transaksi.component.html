@@ -1,0 +1,252 @@
+<p-toast position="center" key="updateStatusTransaksi"></p-toast>
+<div class="card">
+  <h3>{{title}}</h3>
+
+  <p-table #dt [value]="items" [rows]="10"
+           [paginator]="true" (onLazyLoad)="loadDataLazy($event)" [lazy]="true"
+           [totalRecords]="totalRecords"
+           [rowHover]="true" dataKey="id_transaksi"
+           [rowsPerPageOptions]="[10, 25, 50]"
+           [showCurrentPageReport]="true"
+           [loading]="isLoading"
+           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+           styleClass="p-datatable-gridlines"
+           selectionMode="single" [(selection)]="selectedData"
+           dataKey="id_transaksi" responsiveLayout="scroll"
+           (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowSelect($event)"
+           [globalFilterFields]="['keyword']">
+
+    <ng-template pTemplate="caption">
+      <div class="flex">
+
+        <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+
+                <input pInputText type="text" (input)="searchData($event)"
+                       placeholder="Search by Email or Phone"/>
+
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th class="text-center">No.</th>
+        <th pSortableColumn="createdAt" class="text-center" width="10%">Tanggal
+          <p-sortIcon field="createdAt"></p-sortIcon>
+        </th>
+        <th pSortableColumn="idTransaksi" class="text-center" width="10%">No.Transaksi
+          <p-sortIcon field="idTransaksi"></p-sortIcon>
+        </th>
+
+        <th pSortableColumn="email" class="text-center">Email
+          <p-sortIcon field="email"></p-sortIcon>
+        </th>
+        <th pSortableColumn="phone" class="text-center">Phone
+          <p-sortIcon field="phone"></p-sortIcon>
+        </th>
+        <th pSortableColumn="grade" class="text-center" width="10%">Grade
+          <p-sortIcon field="grade"></p-sortIcon>
+        </th>
+        <th pSortableColumn="harga" class="text-center" width="10%">Harga Final
+          <p-sortIcon field="harga"></p-sortIcon>
+        </th>
+        <th class="text-center">Toko</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowIndex="rowIndex" let-transaksi>
+      <tr [pSelectableRow]="transaksi">
+        <td class="text-center">{{rowIndex + 1}}.</td>
+        <td>{{transaksi.created_at | date: 'dd MMM yyyy HH:mm'}}</td>
+        <td>{{transaksi.id_transaksi}}</td>
+        <td>{{transaksi.email}}</td>
+        <td>{{transaksi.phone}}</td>
+        <td [innerHtml]>{{transaksi.grade}}</td>
+        <td class="text-right">{{transaksi.harga | number:'1.0-0'}}</td>
+        <td>{{transaksi.nama_toko}}</td>
+
+
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="10" class="text-center font-bold p-error">No data found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+
+<p-dialog [(visible)]="transaksiDialog" [style]="{width: '800px'}" header={{titleDialog}} [modal]="true"
+          styleClass="p-fluid">
+
+  <div class="col-12">
+
+
+    <p-splitter [panelSizes]="[50,50]">
+      <ng-template pTemplate>
+
+
+        <div class="col m-3">
+          <p-divider align="center">
+            <i class="pi pi-user mr-2"></i>
+            <span class="p-tag">Pelanggan</span>
+          </p-divider>
+          <ul class="p-0 mx-0 mt-0 list-none">
+
+            <li
+              class="flex flex-column md:flex-row md:align-items-center md:justify-content-between align-items-center py-2 border-bottom-1 surface-border">
+              <div>
+                <span class="text-900 text-md sm:text-sm font-medium mr-2 mb-1 md:mb-0">Email</span>
+              </div>
+              <span class="text-700 text-md sm:text-sm"> {{selectedData?.email}}</span>
+            </li>
+
+            <li
+              class="flex flex-column md:flex-row md:align-items-center md:justify-content-between align-items-center py-2 border-bottom-1 surface-border">
+              <div>
+                <span class="text-900 font-medium text-md sm:text-sm mr-2 mb-1 md:mb-0">Phone</span>
+              </div>
+              <span class="text-700 text-md sm:text-sm"> {{selectedData?.phone}}</span>
+            </li>
+            <li
+              class="flex flex-column md:flex-row md:align-items-center md:justify-content-between align-items-center py-2">
+              <div>
+                <span class="text-900 font-medium mr-2 mb-1 md:mb-0 text-md sm:text-sm">Nama Toko</span>
+              </div>
+              <span class="text-700 text-md sm:text-sm"> {{selectedData?.nama_toko}}</span>
+            </li>
+            <li
+              class="flex flex-column md:flex-row md:align-items-center md:justify-content-between align-items-center py-2 border-bottom-1 surface-border">
+              <div>
+                <span class="text-900 font-medium text-md sm:text-sm mr-2 mb-1 md:mb-0">Tanggal Transaksi </span>
+              </div>
+              <span class="text-700 text-md sm:text-sm"> {{selectedData?.created_at | date: 'dd MMM yyyy HH:mm'}}</span>
+            </li>
+          </ul>
+          <p-divider align="center">
+            <i class="pi pi-calculator mr-2"></i>
+            <span class="p-tag">Spesifikasi Handphone</span>
+          </p-divider>
+          <ul class="p-0 m-0 list-none">
+            <li
+              class="flex flex-column md:flex-row md:align-items-center md:justify-content-between align-items-center py-2 border-bottom-1 surface-border">
+              <div>
+                <span class="text-900 font-medium mr-2 mb-1 md:mb-0 text-md sm:text-sm">Merk</span>
+              </div>
+              <span class="text-700 text-md sm:text-sm"> {{selectedData?.merk}}</span>
+            </li>
+            <li
+              class="flex flex-column md:flex-row md:align-items-center md:justify-content-between align-items-center py-2 border-bottom-1 surface-border">
+              <div>
+                <span class="text-900 font-medium mr-2 mb-1 md:mb-0 text-md sm:text-sm">Type</span>
+              </div>
+              <span class="text-700 text-md sm:text-sm"> {{selectedData?.type}}</span>
+            </li>
+            <li
+              class="flex flex-column md:flex-row md:align-items-center md:justify-content-between align-items-center py-2 border-bottom-1 surface-border">
+              <div>
+                <span class="text-900 font-medium mr-2 mb-1 md:mb-0 text-md sm:text-sm">Storage</span>
+              </div>
+              <span class="text-700 text-md sm:text-sm"> {{selectedData?.storage}}</span>
+            </li>
+          </ul>
+        </div>
+      </ng-template>
+
+
+      <ng-template pTemplate>
+        <div class="col m-3">
+          <p-divider align="center">
+            <i class="pi pi-verified mr-2"></i>
+            <span class="p-tag">Hasil Cek HP</span>
+          </p-divider>
+          <ul class="p-0 m-0 list-none">
+            <li
+              class="flex flex-column md:flex-row md:align-items-center md:justify-content-between align-items-center py-2 border-bottom-1 surface-border">
+              <div>
+                <span class="text-900 font-medium mr-2 mb-1 md:mb-0 text-md sm:text-sm">Body Scratch</span>
+              </div>
+              <span class="text-700 text-md sm:text-sm">{{selectedData?.body_scratch}}</span>
+            </li>
+            <li
+              class="flex flex-column md:flex-row md:align-items-center md:justify-content-between align-items-center py-2 border-bottom-1 surface-border">
+              <div>
+                <span class="text-900 font-medium mr-2 mb-1 md:mb-0 text-md sm:text-sm">Kamera Depan</span>
+              </div>
+              <span class="text-700 text-md sm:text-sm">{{selectedData?.camera_depan}}</span>
+            </li>
+            <li
+              class="flex flex-column md:flex-row md:align-items-center md:justify-content-between align-items-center py-2 border-bottom-1 surface-border">
+              <div>
+                <span class="text-900 font-medium mr-2 mb-1 md:mb-0 text-md sm:text-sm">Kamera Belakang</span>
+              </div>
+              <span class="text-700 text-md sm:text-sm">{{selectedData?.camera_belakang}}</span>
+            </li>
+            <li
+              class="flex flex-column md:flex-row md:align-items-center md:justify-content-between align-items-center py-2 border-bottom-1 surface-border">
+              <div>
+                <span class="text-900 font-medium mr-2 mb-1 md:mb-0 text-md sm:text-sm">Tombol On/Off</span>
+              </div>
+              <span class="text-700 text-md sm:text-sm">{{selectedData?.tombol_on_off}}</span>
+            </li>
+            <li
+              class="flex flex-column md:flex-row md:align-items-center md:justify-content-between align-items-center py-2 border-bottom-1 surface-border">
+              <div>
+                <span class="text-900 font-medium mr-2 mb-1 md:mb-0 text-md sm:text-sm">Tombol Volume</span>
+              </div>
+              <span class="text-700 text-md sm:text-sm">{{selectedData?.tombol_volume}}</span>
+            </li>
+            <li
+              class="flex flex-column md:flex-row md:align-items-center md:justify-content-between align-items-center py-2 border-bottom-1 surface-border">
+              <div>
+                <span class="text-900 font-medium mr-2 mb-1 md:mb-0 text-md sm:text-sm">Test Speaker</span>
+              </div>
+              <span class="text-700 text-md sm:text-sm">{{selectedData?.test_speaker}}</span>
+            </li>
+            <li
+              class="flex flex-column md:flex-row md:align-items-center md:justify-content-between align-items-center py-2 border-bottom-1 surface-border">
+              <div>
+                <span class="text-900 font-medium mr-2 mb-1 md:mb-0 text-md sm:text-sm">Test Touchscreen</span>
+              </div>
+              <span class="text-700 text-md sm:text-sm">{{selectedData?.test_touchscreen}}</span>
+            </li>
+            <li
+              class="flex flex-column md:flex-row md:align-items-center md:justify-content-between align-items-center py-2 border-bottom-1 surface-border">
+              <div>
+                <span class="text-900 font-medium mr-2 mb-1 md:mb-0 text-md sm:text-sm">Harga Final</span>
+              </div>
+              <span class="text-700 text-md sm:text-sm">{{selectedData?.harga | number:'1.0-0'}}</span>
+            </li>
+
+            <li
+              class="flex flex-column md:flex-row md:align-items-center md:justify-content-between align-items-center py-2">
+              <div>
+                <span class="text-900 font-medium mr-2 mb-1 md:mb-0 text-md sm:text-sm">Grade</span>
+              </div>
+              <span class="text-700 text-md sm:text-sm">{{selectedData?.grade}}</span>
+            </li>
+          </ul>
+        </div>
+      </ng-template>
+
+    </p-splitter>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancel" [loading]="isBtnLoading" icon="pi pi-undo"
+            class="p-button-warning p-button-sm"
+            (click)="hideDialog()"></button>
+
+    <button *ngIf="selectedData?.status === 1" [loading]="isBtnLoading" pButton pRipple label="Tolak" icon="pi pi-times"
+            class="p-button-danger p-button-sm"
+            (click)="approveTransaksi(selectedData?.id_transaksi, 3)"></button>
+    <button *ngIf="selectedData?.status === 1" pButton pRipple [loading]="isBtnLoading" label="Approve"
+            icon="pi pi-check"
+            class="p-button-success p-button-sm"
+            (click)="approveTransaksi(selectedData?.id_transaksi, 2)"></button>
+
+
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

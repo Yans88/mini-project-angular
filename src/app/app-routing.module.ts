@@ -32,6 +32,13 @@ import {AuthGuard} from './core/auth.guard';
           ],
         },
         {
+          path: 'transaksi',
+          canActivate: [AuthGuard],
+          component: AppLayoutComponent,
+          loadChildren: () =>
+            import('./pages/transaksi/transaksi.module').then((m) => m.TransaksiModule),
+        },
+        {
           path: 'auth',
           loadChildren: () =>
             import('./auth/auth.module').then((m) => m.AuthModule),
