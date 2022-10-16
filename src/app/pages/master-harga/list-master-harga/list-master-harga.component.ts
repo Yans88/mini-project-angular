@@ -89,7 +89,13 @@ export class ListMasterHargaComponent implements OnInit {
         this.items = this.items.filter(val => val.id_harga !== harga.id_harga);
         this.totalRecords = this.totalRecords - 1;
         this.harga = {};
-        this.messageService.add({severity: 'warn', summary: 'Successful', detail: 'Data Deleted', life: 3000});
+        this.messageService.add({
+          key: 'notifDataHarga',
+          severity: 'warn',
+          summary: 'Successful',
+          detail: 'Data Deleted',
+          life: 3000
+        });
       }
     });
   }
@@ -112,7 +118,13 @@ export class ListMasterHargaComponent implements OnInit {
           }*/
           //this.items[this.findIndexById(id_harga)] = this.harga;
           //this.getData({});
-          this.messageService.add({severity: 'warn', summary: 'Successful', detail: 'Harga Updated', life: 3000});
+          this.messageService.add({
+            key: 'notifDataHarga',
+            severity: 'warn',
+            summary: 'Successful',
+            detail: 'Harga Updated',
+            life: 3000
+          });
 
         }
       });
@@ -123,7 +135,13 @@ export class ListMasterHargaComponent implements OnInit {
       this.masterHargaService.postData(this.harga).subscribe(response => {
         if (response.err_msg === 'ok') {
           //this.totalRecords = this.totalRecords + 1;
-          this.messageService.add({severity: 'warn', summary: 'Successful', detail: 'Harga Created', life: 3000});
+          this.messageService.add({
+            key: 'notifDataHarga',
+            severity: 'warn',
+            summary: 'Successful',
+            detail: 'Harga Created',
+            life: 3000
+          });
 
           //this.getData({});
           //this.items.push(this.harga);

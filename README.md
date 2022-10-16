@@ -17,6 +17,9 @@ Aplikasi ini digunakan untuk proses jual atau tukar tambah Handphone bekas:
 - Backend API https://github.com/Yans88/mini-project-java.git
 - Web socket menggunakan rxjs/webSocket, stompjs dan sockjs-client
 - Import data dari file(.xlsx)
+- Datatable server side
+- Interceptor
+- Unit Testing
 
 ## Dokumentasi
 

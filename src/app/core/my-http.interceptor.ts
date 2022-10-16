@@ -45,8 +45,8 @@ export class MyHttpInterceptor implements HttpInterceptor {
         return event;
       }),
       catchError((error: HttpErrorResponse) => {
-       let data = {
-          reason: error && error.error && error.error.reason ? error.error.reason : '',
+        let data = {
+          reason: error && error.error && error.error.message ? error.error.message : '',
           status: error.status
         };
         this.messageService.add({severity: 'error', summary: 'Error', detail: data?.status + ': ' + data?.reason});

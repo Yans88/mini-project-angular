@@ -60,7 +60,9 @@
         <td>{{transaksi.id_transaksi}}</td>
         <td>{{transaksi.email}}</td>
         <td>{{transaksi.phone}}</td>
-        <td [innerHtml]>{{transaksi.grade}}</td>
+        <td class="text-center">
+          <p-badge value="{{transaksi.grade}}" severity="{{transaksi.grade | gradePipe}}"></p-badge>
+        </td>
         <td class="text-right">{{transaksi.harga | number:'1.0-0'}}</td>
         <td>{{transaksi.nama_toko}}</td>
 
@@ -166,49 +168,50 @@
               <div>
                 <span class="text-900 font-medium mr-2 mb-1 md:mb-0 text-md sm:text-sm">Body Scratch</span>
               </div>
-              <span class="text-700 text-md sm:text-sm">{{selectedData?.body_scratch}}</span>
+              <div [innerHtml]="selectedData?.body_scratch | cekHP"></div>
+
             </li>
             <li
               class="flex flex-column md:flex-row md:align-items-center md:justify-content-between align-items-center py-2 border-bottom-1 surface-border">
               <div>
                 <span class="text-900 font-medium mr-2 mb-1 md:mb-0 text-md sm:text-sm">Kamera Depan</span>
               </div>
-              <span class="text-700 text-md sm:text-sm">{{selectedData?.camera_depan}}</span>
+              <div [innerHtml]="selectedData?.camera_depan | cekHP"></div>
             </li>
             <li
               class="flex flex-column md:flex-row md:align-items-center md:justify-content-between align-items-center py-2 border-bottom-1 surface-border">
               <div>
                 <span class="text-900 font-medium mr-2 mb-1 md:mb-0 text-md sm:text-sm">Kamera Belakang</span>
               </div>
-              <span class="text-700 text-md sm:text-sm">{{selectedData?.camera_belakang}}</span>
+              <div [innerHtml]="selectedData?.camera_belakang | cekHP"></div>
             </li>
             <li
               class="flex flex-column md:flex-row md:align-items-center md:justify-content-between align-items-center py-2 border-bottom-1 surface-border">
               <div>
                 <span class="text-900 font-medium mr-2 mb-1 md:mb-0 text-md sm:text-sm">Tombol On/Off</span>
               </div>
-              <span class="text-700 text-md sm:text-sm">{{selectedData?.tombol_on_off}}</span>
+              <div [innerHtml]="selectedData?.tombol_on_off | cekHP"></div>
             </li>
             <li
               class="flex flex-column md:flex-row md:align-items-center md:justify-content-between align-items-center py-2 border-bottom-1 surface-border">
               <div>
                 <span class="text-900 font-medium mr-2 mb-1 md:mb-0 text-md sm:text-sm">Tombol Volume</span>
               </div>
-              <span class="text-700 text-md sm:text-sm">{{selectedData?.tombol_volume}}</span>
+              <div [innerHtml]="selectedData?.tombol_volume | cekHP"></div>
             </li>
             <li
               class="flex flex-column md:flex-row md:align-items-center md:justify-content-between align-items-center py-2 border-bottom-1 surface-border">
               <div>
                 <span class="text-900 font-medium mr-2 mb-1 md:mb-0 text-md sm:text-sm">Test Speaker</span>
               </div>
-              <span class="text-700 text-md sm:text-sm">{{selectedData?.test_speaker}}</span>
+              <div [innerHtml]="selectedData?.test_speaker | cekHP"></div>
             </li>
             <li
               class="flex flex-column md:flex-row md:align-items-center md:justify-content-between align-items-center py-2 border-bottom-1 surface-border">
               <div>
                 <span class="text-900 font-medium mr-2 mb-1 md:mb-0 text-md sm:text-sm">Test Touchscreen</span>
               </div>
-              <span class="text-700 text-md sm:text-sm">{{selectedData?.test_touchscreen}}</span>
+              <div [innerHtml]="selectedData?.test_touchscreen | cekHP"></div>
             </li>
             <li
               class="flex flex-column md:flex-row md:align-items-center md:justify-content-between align-items-center py-2 border-bottom-1 surface-border">
@@ -223,7 +226,7 @@
               <div>
                 <span class="text-900 font-medium mr-2 mb-1 md:mb-0 text-md sm:text-sm">Grade</span>
               </div>
-              <span class="text-700 text-md sm:text-sm">{{selectedData?.grade}}</span>
+              <p-badge value="{{selectedData?.grade}}" severity="{{selectedData?.grade | gradePipe}}"></p-badge>
             </li>
           </ul>
         </div>

@@ -5,16 +5,21 @@ import {Pipe, PipeTransform} from '@angular/core';
 })
 export class GradePipePipe implements PipeTransform {
 
-  transform(value: string): any {
+
+  transform(value: string | undefined): any {
     if (value === 'A') {
-      return '<p-tag severity="success" value="A"></p-tag>';
+      return 'success';
     } else if (value === 'B') {
-      return '<p-tag severity="info" value="B"></p-tag>';
+      return 'info';
     } else if (value === 'C') {
-      return '<p-tag severity="warning" value="C"></p-tag>';
+      //return this.sanitizer.bypassSecurityTrustHtml('<p-tag severity="warning" value="C"></p-tag>');
+      //return '<p-badge value="C" size="large" severity="warning"></p-badge>';
+      return 'warning';
     } else {
-      return '<p-tag severity="danger" value="Reject"></p-tag>';
+      return 'danger';
     }
+
   }
+
 
 }
