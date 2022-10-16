@@ -58,7 +58,7 @@ export class ListMasterHargaComponent implements OnInit {
 
   searchData(event: any) {
     const res = (event.target as HTMLInputElement)?.value
-    this.dt.filterGlobal(res);
+    this.dt.filterGlobal(res, 'contains');
   }
 
   openNew() {
@@ -104,13 +104,13 @@ export class ListMasterHargaComponent implements OnInit {
     this.isLoading = true;
     if (this.harga.id_harga) {
       let id_harga: number = this.harga.id_harga ? this.harga.id_harga : 0;
-      //this.items[this.findIndexById(id_harga)] = this.harga;
+      this.items[this.findIndexById(id_harga)] = this.harga;
       this.masterHargaService.editData(this.harga).subscribe(response => {
         if (response.err_msg === 'ok') {
           /*if (response.payload) {
             this.items[this.findIndexById(id_harga)] = response.payload;
           }*/
-          this.items[this.findIndexById(id_harga)] = this.harga;
+          //this.items[this.findIndexById(id_harga)] = this.harga;
           //this.getData({});
           this.messageService.add({severity: 'warn', summary: 'Successful', detail: 'Harga Updated', life: 3000});
 
@@ -118,14 +118,15 @@ export class ListMasterHargaComponent implements OnInit {
       });
 
     } else {
-      //this.items.push(this.harga);
+      this.items.push(this.harga);
+      this.totalRecords = this.totalRecords + 1;
       this.masterHargaService.postData(this.harga).subscribe(response => {
         if (response.err_msg === 'ok') {
-          this.totalRecords = this.totalRecords + 1;
+          //this.totalRecords = this.totalRecords + 1;
           this.messageService.add({severity: 'warn', summary: 'Successful', detail: 'Harga Created', life: 3000});
 
           //this.getData({});
-          this.items.push(this.harga);
+          //this.items.push(this.harga);
           /* if (response.payload) {
              this.items.push(response.payload);
            }*/

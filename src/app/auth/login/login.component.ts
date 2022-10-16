@@ -36,10 +36,10 @@ export class LoginComponent {
   isLoading: boolean = false;
 
   constructor(
-    private route: Router,
+    public route: Router,
     private actRoute: ActivatedRoute,
     private authService: AuthService,
-    private sessionService: MySessionService,
+    public sessionService: MySessionService,
   ) {
   }
 

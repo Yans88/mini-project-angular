@@ -20,7 +20,7 @@ export class WebSocketAPI {
   }
 
   connectWS(): void {
-    console.log("Initialize WebSocket Connection");
+    //console.log("Initialize WebSocket Connection");
     let ws = new SockJS(this.webSocketEndPoint);
     this.stompClient = Stomp.over(ws);
     const _this = this;
@@ -69,13 +69,12 @@ export class WebSocketAPI {
   }
 
   clearCounter() {
-    console.log('reset');
     this.countMsg = 0;
     this.notification$.next(this.countMsg);
     console.log(this.notification$.getValue());
   }
 
-  clearMessage():void{
+  clearMessage(): void {
     this.messageService.clear();
   }
 }

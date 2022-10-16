@@ -5,6 +5,9 @@ import {LoginComponent} from './login.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {DebugElement} from "@angular/core";
 import {By} from "@angular/platform-browser";
+import {AppComponent} from "../../app.component";
+import {Location} from "@angular/common";
+
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -14,9 +17,10 @@ describe('LoginComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [LoginComponent],
-      imports: [ReactiveFormsModule, FormsModule, RouterTestingModule, HttpClientTestingModule]
-    })
-      .compileComponents();
+      imports: [ReactiveFormsModule, FormsModule, HttpClientTestingModule, RouterTestingModule.withRoutes(
+        [{path: '', component: AppComponent}]
+      )],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -64,15 +68,16 @@ describe('LoginComponent', () => {
     expect(component.loginForm.valid).toBeTruthy()
   })
 
-  it('login onsubmit', () => {
+  it('onsubmit login => success', () => {
     component.loginForm.setValue({
       username: 'yansen@gmail.com',
       password: '123123',
     })
     component.onSubmit();
     expect(component.isLoading).toEqual(false);
+    const location: Location = TestBed.inject(Location);
+    expect(component.route.navigate).toBeTruthy()
+    expect(component.sessionService).toBeTruthy();
+    expect(location.path()).toBe('');
   })
-
-
-
 });

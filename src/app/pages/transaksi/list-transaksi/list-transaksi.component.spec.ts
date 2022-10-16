@@ -82,4 +82,5 @@ describe('ListTransaksiComponent', () => {
     expect(component.sortOrder).toBe(event.sortOrder);
   });
 
+
 });

@@ -1,7 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {AuthService} from './auth.service';
-import {IDataHargaModel} from "../pages/master-harga/master-harga-model";
 import {ILogin} from "./login.model";
 
 describe('AuthService', () => {
